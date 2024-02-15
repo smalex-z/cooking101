@@ -1,111 +1,116 @@
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { StyleSheet, View, TextInput, Text, TouchableOpacity, Image } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const SignupScreen = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <View style={styles.profilePicContainer}>
+        <Image
+          source={require('../createProf/placeholder.png')}
+          style={styles.profilePic}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Ionicons name="person-outline" size={24} color="#A9A9A9" />
+        <TextInput style={styles.input} placeholder="Username" />
+      </View>
+      <View style={styles.inputContainer}>
+        <Ionicons name="mail-outline" size={24} color="#A9A9A9" />
+        <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" />
+      </View>
+      <View style={styles.inputContainer}>
+        <Ionicons name="lock-closed-outline" size={24} color="#A9A9A9" />
+        <TextInput style={styles.input} placeholder="Password" secureTextEntry />
+      </View>
+      <View style={styles.inputContainer}>
+        <Ionicons name="lock-closed-outline" size={24} color="#A9A9A9" />
+        <TextInput style={styles.input} placeholder="Re-enter password" secureTextEntry />
+      </View>
+      <TouchableOpacity style={styles.signupButton}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.googleButton}>
+        <Text style={styles.googleButtonText}>Sign Up with Google</Text>
+      </TouchableOpacity>
     </View>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Alex is editting here so testing 123
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  profilePicContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0', // Replace with the appropriate color
   },
-  sectionDescription: {
-    marginTop: 8,
+  profilePic: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 50,
+  },
+  iconContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginBottom: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#A9A9A9',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '80%',
+    height: 48,
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#A9A9A9',
+  },
+  input: {
+    flex: 1,
+    height: '100%',
+    marginLeft: 10,
+    fontSize: 16,
+    color: '#000',
+  },
+  signupButton: {
+    width: '80%',
+    height: 50,
+    backgroundColor: '#000000',
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: '400',
+    fontWeight: 'bold',
   },
-  highlight: {
-    fontWeight: '700',
+  googleButton: {
+    width: '80%',
+    height: 50,
+    backgroundColor: '#DB4437',
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  googleButtonText: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
-export default App;
+export default SignupScreen;

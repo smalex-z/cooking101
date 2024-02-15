@@ -1,8 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, Text, TouchableOpacity, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const SignupScreen = () => {
+
+  const navigation = useNavigation();
+  
+  const handleSignUpPress = () => {
+    navigation.navigate('homepage');
+  };
+  
   return (
     <View style={styles.container}>
       <View style={styles.profilePicContainer}>
@@ -27,7 +35,7 @@ const SignupScreen = () => {
         <Ionicons name="lock-closed-outline" size={24} color="#A9A9A9" />
         <TextInput style={styles.input} placeholder="Re-enter password" secureTextEntry />
       </View>
-      <TouchableOpacity style={styles.signupButton}>
+      <TouchableOpacity style={styles.signupButton} onPress = {handleSignUpPress}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.googleButton}>

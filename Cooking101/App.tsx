@@ -13,7 +13,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import createProfileScreen from './createProf/createProf';
 import homepage from './homepage/home';
 
-
+import auth from '@react-native-firebase/auth'
 
 
 const Tab = createBottomTabNavigator();
@@ -21,6 +21,20 @@ const Tab = createBottomTabNavigator();
 const App = () => {
 
   const Stack = createNativeStackNavigator();
+
+  const [initializing, setInitializing] = useState(true)
+  const [user, setUser] = useState()
+
+  // Handle user state changes
+  function onAuthStateChanged(user: any) {
+    setUser(user)
+    if (initializing) setInitializing(false)
+  }
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, [])
+  
 
   return (
 	<NavigationContainer>

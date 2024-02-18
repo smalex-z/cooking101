@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useAuth } from '../context/AuthContext';
 
 const SignupScreen = () => {
 
   const navigation = useNavigation();
   
+  const [emailInput, onEmailInputChange] = useState('')
+  const [passwordInput, onPasswordInputChange] = useState('')
+
+  const {currentUser, signUpOrLogIn} = useAuth()
+
   const handleSignUpPress = () => {
-    navigation.navigate('homepage');
+    signUpOrLogIn(emailInput, passwordInput)
   };
   
   return (
@@ -19,28 +25,36 @@ const SignupScreen = () => {
           style={styles.profilePic}
         />
       </View>
-      <View style={styles.inputContainer}>
+      {/* <View style={styles.inputContainer}>
         <Ionicons name="person-outline" size={24} color="#A9A9A9" />
         <TextInput style={styles.input} placeholder="Username" />
-      </View>
+      </View> */}
       <View style={styles.inputContainer}>
         <Ionicons name="mail-outline" size={24} color="#A9A9A9" />
-        <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" />
+        <TextInput 
+          style={styles.input} 
+          placeholder="Email" 
+          keyboardType="email-address" 
+          onChangeText={onEmailInputChange}/>
       </View>
       <View style={styles.inputContainer}>
         <Ionicons name="lock-closed-outline" size={24} color="#A9A9A9" />
-        <TextInput style={styles.input} placeholder="Password" secureTextEntry />
+        <TextInput 
+          style={styles.input} 
+          placeholder="Password" 
+          secureTextEntry
+          onChangeText={onPasswordInputChange} />
       </View>
-      <View style={styles.inputContainer}>
+      {/* <View style={styles.inputContainer}>
         <Ionicons name="lock-closed-outline" size={24} color="#A9A9A9" />
         <TextInput style={styles.input} placeholder="Re-enter password" secureTextEntry />
-      </View>
+      </View> */}
       <TouchableOpacity style={styles.signupButton} onPress = {handleSignUpPress}>
         <Text style={styles.buttonText}>Sign Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.googleButton}>
+      {/* <TouchableOpacity style={styles.googleButton}>
         <Text style={styles.googleButtonText}>Sign Up with Google</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

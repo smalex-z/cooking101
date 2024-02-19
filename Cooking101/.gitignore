@@ -66,4 +66,7 @@ yarn-error.log
 /coverage
 
 # google auth stuff
-/ios/GoogleService-Info.plist
+ios/GoogleService-Info.plist
+
+# andriod auth stuff
+android/app/google-services.json

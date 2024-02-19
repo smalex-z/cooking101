@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { useAuth } from '../context/AuthContext';
 
 // Mock component for the search bar
 const SearchBar = () => (
@@ -59,9 +60,13 @@ const RecipePage = () => {
     { key: '2', dishName: 'Dish Name' },
     // Add more recipes here
   ];
+  const {currentUser} = useAuth()
 
   return (
     <ScrollView>
+      {/* For testing successful auth */}
+      {/* currentUser shouldn't be undefined because that would cause context to render sign in page */}
+      <Text>Hello, {currentUser!.email}</Text>
       <SearchBar />
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <CuisineCard dishName="Cuisine Name" imageSource={require('../homepage/food1.jpg')} />

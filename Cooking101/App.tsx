@@ -10,10 +10,13 @@ import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import createProfileScreen from './createProf/createProf';
 import homepage from './homepage/home';
 
-
+import { AuthProvider } from './context/AuthContext';
+import { Router } from './routes/Router';
 
 
 const Tab = createBottomTabNavigator();
@@ -23,18 +26,13 @@ const App = () => {
   const Stack = createNativeStackNavigator();
 
   return (
-	<NavigationContainer>
-		<Stack.Navigator>
-			<Stack.Screen name="createProfileScreen" component={createProfileScreen} options={{headerShown: false}} />
-			<Stack.Screen name="homepage" component={homepage} options={{headerShown: false}}/>
-		</Stack.Navigator>
-	</NavigationContainer>
+    <GestureHandlerRootView style={{flex: 1}}>
+    <AuthProvider>
+      <Router />
+    </AuthProvider>
+    </GestureHandlerRootView>
   )
 };
-
-const styles = StyleSheet.create({
-  
-});
 
 
 export default App;

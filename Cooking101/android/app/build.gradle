@@ -116,7 +116,6 @@ dependencies {
         implementation jscFlavor
     }
 
-    classpath 'com.google.gms:google-services:4.4.0'
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

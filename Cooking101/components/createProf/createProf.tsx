@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 const SignupScreen = () => {
 

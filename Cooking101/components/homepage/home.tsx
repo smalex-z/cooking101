@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 // Mock component for the search bar
 const SearchBar = () => (

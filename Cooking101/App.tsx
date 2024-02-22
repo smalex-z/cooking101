@@ -12,8 +12,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import createProfileScreen from './createProf/createProf';
-import homepage from './homepage/home';
+import createProfileScreen from './components/createProf/createProf';
+import homepage from './components/homepage/home';
 
 import { AuthProvider } from './context/AuthContext';
 import { Router } from './routes/Router';

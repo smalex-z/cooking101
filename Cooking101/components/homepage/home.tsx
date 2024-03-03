@@ -20,7 +20,9 @@ const SearchBar = () => (
 // Define the type for the props that RecipeCard expects
 interface RecipeCardProps {
   dishName: string;
+  recipeId?: string, // isn't required for now because we're testing
   imageSource: any; // Change 'any' to the appropriate type of your image source
+  navigation?: any // idk how to do this with typescript and i don't have time rn, also not required because of testing
 }
 
 // Mock component for a single cuisine card
@@ -38,8 +40,15 @@ const CuisineCard: React.FC<RecipeCardProps> = ({ dishName, imageSource }) => (
 );
 
 // Mock component for a single recipe card
-const RecipeCard: React.FC<RecipeCardProps> = ({ dishName, imageSource }) => (
-  <View style={{ alignItems: 'center', margin: 10 }}>
+const RecipeCard: React.FC<RecipeCardProps> = ({ dishName, recipeId, imageSource, navigation }) => (
+  <View 
+    style={{ alignItems: 'center', margin: 10 }} 
+    onTouchEnd={() =>
+      navigation?.navigate('RecipeOverview', {
+        recipeId: recipeId
+      })
+    }
+  >
     <View style={{ aspectRatio: 3/5, width: 150, borderRadius: 10, overflow: 'hidden' }}>
       <Image
         source={imageSource}
@@ -53,7 +62,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ dishName, imageSource }) => (
 
 
 // Main component for the recipe page
-const RecipePage = () => {
+const RecipePage = ({navigation}: {navigation: any}) => { // TODO: clean up prop types
   // Placeholder data for recipes
   const recipes = [
     { key: '1', dishName: 'Dish Name' },
@@ -75,7 +84,7 @@ const RecipePage = () => {
       <Text style={{ margin: 10 }}>Recommended for you</Text>
       <ScrollView horizontal>
         {recipes.map(recipe => (
-          <RecipeCard key={recipe.key} dishName={recipe.dishName} imageSource={require('../homepage/food2.jpg')} />
+          <RecipeCard key={recipe.key} dishName={recipe.dishName} imageSource={require('../homepage/food2.jpg')} navigation={navigation} />
         ))}
       </ScrollView>
       <Text style={{ margin: 10 }}>Trending Now</Text>

@@ -1,3 +1,4 @@
+import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { Loading } from "../components/Loading";
 import { NavigationContainer } from "@react-navigation/native";

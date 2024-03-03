@@ -70,3 +70,5 @@ ios/GoogleService-Info.plist
 
 # andriod auth stuff
 android/app/google-services.json
+
+/components/RecipeOverview/gnocchi-test-img.jpg

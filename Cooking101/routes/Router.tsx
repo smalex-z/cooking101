@@ -5,9 +5,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { AppStack } from "./AppStack";
 import { AuthStack } from "./AuthStack";
 
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import uploadPage from '../components/uploadPage/upload';
 
 export function Router() {
     const {currentUser, loading} = useAuth()
+    const Stack = createNativeStackNavigator();
 
     console.log('entering router with user:', currentUser)
     if (loading) {
@@ -17,7 +20,10 @@ export function Router() {
     }
     return (
         <NavigationContainer>
-            {currentUser ? <AppStack /> : <AuthStack />}
+            {/* {currentUser ? <AppStack /> : <AuthStack />} */}
+            <Stack.Navigator>
+                <Stack.Screen name="Upload" component={uploadPage} />
+            </Stack.Navigator>
         </NavigationContainer>
     )
 }

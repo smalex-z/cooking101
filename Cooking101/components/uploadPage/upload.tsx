@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Image, ScrollView, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Image, ScrollView, StyleSheet, Text } from 'react-native';
 
 const RecipeForm = () => {
   const [recipeTitle, setRecipeTitle] = useState('');
@@ -17,6 +17,7 @@ const RecipeForm = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <View ><Text style={styles.header}>What Would you Like To Upload?</Text></View>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Title of Recipe"
@@ -26,11 +27,13 @@ const RecipeForm = () => {
         />
       </View>
       
-      <View style={styles.imageContainer}>
+      <View><Text style={styles.header}>Image</Text></View>
+      <View style={styles.buttonContainer}>
         {/* Image Picker would go here */}
         <Button title="Attach an image" onPress={() => {}} />
       </View>
       
+      <View><Text style={styles.header}>Ingredients</Text></View>
       {ingredients.map((ingredient, index) => (
         <View key={index} style={styles.inputContainer}>
           <TextInput
@@ -42,8 +45,9 @@ const RecipeForm = () => {
         </View>
       ))}
       
+      <View style={styles.buttonContainer}>
       <Button title="Add More" onPress={handleAddIngredient} />
-      
+      </View>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Please enter any additional details about your recipe."
@@ -52,9 +56,13 @@ const RecipeForm = () => {
         />
       </View>
       
+      <View style = {styles.buttonBox}>
       <View style={styles.buttonContainer}>
         <Button title="Save for later" onPress={() => {}} />
-        <Button title="Next Page" onPress={() => {}} />
+      </View>
+      <View style={styles.buttonContainer}>
+      <Button title="Next Page" onPress={() => {}} />
+      </View>
       </View>
     </ScrollView>
   );
@@ -65,6 +73,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  
   inputContainer: {
     marginBottom: 10,
   },
@@ -81,10 +90,21 @@ const styles = StyleSheet.create({
     height: 100,
   },
   buttonContainer: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 20,
+    backgroundColor: '#E5E5E5', // Adjust the color to match the button background
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 15,
+    margin: 10,
   },
+  buttonBox:{
+    flexDirection: 'row',
+  },
+  header:{
+    fontWeight: 'bold',
+    fontSize: 21,
+  }
 });
 
 export default RecipeForm;

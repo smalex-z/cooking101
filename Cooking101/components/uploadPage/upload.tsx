@@ -68,6 +68,25 @@ const RecipeForm = () => {
   );
 };
 
+const ProgressBar = ({ currentStep, totalSteps }) => {
+  const stepsArray = Array.from({ length: totalSteps }, (_, index) => index + 1);
+
+  return (
+    <View style={styles.progressContainer}>
+      {stepsArray.map(step => (
+        <View
+          key={step}
+          style={[
+            styles.circle,
+            currentStep >= step ? styles.filledCircle : styles.unfilledCircle,
+          ]}
+        />
+      ))}
+    </View>
+  );
+};
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

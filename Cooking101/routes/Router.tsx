@@ -6,6 +6,7 @@ import { AppStack } from "./AppStack";
 import { AuthStack } from "./AuthStack";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import homePage from '../components/homepage/home';
 import uploadPage from '../components/uploadPage/upload';
 import stepsPage from '../components/steps/steps';
 
@@ -23,6 +24,7 @@ export function Router() {
         <NavigationContainer>
             {/* {currentUser ? <AppStack /> : <AuthStack />} */}
             <Stack.Navigator>
+                <Stack.Screen name="Home" component={homePage} />
                 <Stack.Screen name="Steps" component={stepsPage} />
             </Stack.Navigator>
         </NavigationContainer>

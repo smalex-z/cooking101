@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Image, ScrollView, TouchableOpacity , useWindowDimensions } from 'react-native';
 import { useAuth } from '../../context/AuthContext';
 
 // Mock component for the search bar
@@ -41,6 +41,7 @@ const CuisineCard: React.FC<RecipeCardProps> = ({ dishName, imageSource }) => (
 
 // Mock component for a single recipe card
 const RecipeCard: React.FC<RecipeCardProps> = ({ dishName, recipeId, imageSource, navigation }) => (
+  
   <View 
     style={{ alignItems: 'center', margin: 10 }} 
     onTouchEnd={() =>
@@ -49,7 +50,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ dishName, recipeId, imageSource
       })
     }
   >
-    <View style={{ aspectRatio: 3/5, width: 150, borderRadius: 10, overflow: 'hidden' }}>
+    <View style={{ aspectRatio: 3/5, width: (useWindowDimensions().height * .10), borderRadius: 10, overflow: 'hidden' }}>
       <Image
         source={imageSource}
         style={{ width: '100%', height: '100%' }}
@@ -72,42 +73,44 @@ const RecipePage = ({navigation}: {navigation: any}) => { // TODO: clean up prop
   const {currentUser} = useAuth()
 
   return (
-    <ScrollView>
+    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
       {/* For testing successful auth */}
       {/* currentUser shouldn't be undefined because that would cause context to render sign in page */}
-      <Text>Hello, {currentUser!.email}</Text>
+      <Text>Hello, PlaceHolder</Text> 
       <SearchBar />
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <CuisineCard dishName="Cuisine Name" imageSource={require('../homepage/food1.jpg')} />
         <CuisineCard dishName="Cuisine Name" imageSource={require('../homepage/food1.jpg')} />
       </View>
-      <Text style={{ margin: 10 }}>Recommended for you</Text>
-      <ScrollView horizontal>
-        {recipes.map(recipe => (
-          <RecipeCard key={recipe.key} dishName={recipe.dishName} imageSource={require('../homepage/food2.jpg')} navigation={navigation} />
-        ))}
-      </ScrollView>
-      <Text style={{ margin: 10 }}>Trending Now</Text>
-      <ScrollView horizontal>
-        {recipes.map(recipe => (
-          <RecipeCard key={recipe.key} dishName={recipe.dishName} imageSource={require('../homepage/food2.jpg')} />
-        ))}
-      </ScrollView>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', padding: 10 }}>
-        <TouchableOpacity>
-          <Text>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>Favorites</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>Upload</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>Profile</Text>
-        </TouchableOpacity>
+      <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
+        <Text style={{ margin: 10 }}>Recommended for you</Text>
+        <ScrollView horizontal>
+          {recipes.map(recipe => (
+            <RecipeCard key={recipe.key} dishName={recipe.dishName} imageSource={require('../homepage/food2.jpg')} navigation={navigation} />
+          ))}
+        </ScrollView>
+        <Text style={{ margin: 10 }}>Trending Now</Text>
+        <ScrollView horizontal>
+          {recipes.map(recipe => (
+            <RecipeCard key={recipe.key} dishName={recipe.dishName} imageSource={require('../homepage/food2.jpg')} />
+          ))}
+        </ScrollView>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', padding: 10 }}>
+          <TouchableOpacity>
+            <Text>Home</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>Favorites</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>Upload</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text>Profile</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

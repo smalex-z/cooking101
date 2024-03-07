@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 // Mock data for recipe steps
 const recipeSteps = [
   {
     stepNumber: 1,
     time: '20 minutes',
     instruction: 'Wash all ingredients and blend all ingredients together or mash them together in a bowl.',
-    imageUrl: 'http://placekitten.com/200/200', // Replace with your actual image URL
+    imageUrl: 'https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Spinach-Tomato-Pasta-bowl-500x500.jpg', 
   },
   {
     stepNumber: 2,
     time: '10 minutes',
     instruction: 'Wash all ingredients and blend all ingredients together or mash them together in a bowl.',
-    imageUrl: 'http://placekitten.com/200/200', // Replace with your actual image URL
+    imageUrl: 'https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Spinach-Tomato-Pasta-bowl-500x500.jpg',
   },
   {
     stepNumber: 3,
-    time: '10 minutes',
+    time: '30 minutes',
     instruction: 'Wash all ingredients and blend all ingredients together or mash them together in a bowl.',
-    imageUrl: 'http://placekitten.com/200/200', // Replace with your actual image URL
+    imageUrl: 'https://www.budgetbytes.com/wp-content/uploads/2013/07/Creamy-Spinach-Tomato-Pasta-bowl-500x500.jpg', 
   },
   // ... more steps
 ];
@@ -49,8 +49,24 @@ const RecipeScreen = () => {
           <Text style={styles.closeButtonText}>Close</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.stepIndicator}>
-        <Text style={styles.stepText}>Step {stepNumber}</Text>
+      <View style={styles.navigation}>
+        <TouchableOpacity 
+          onPress={goToPreviousStep} 
+          disabled={currentStepIndex === 0}
+          style={styles.arrowButton}
+        >
+          <Icon name="chevron-left" size={30} color={currentStepIndex === 0 ? 'gray' : 'black'} />
+        </TouchableOpacity>
+        <View style={styles.stepIndicator}>
+          <Text style={styles.stepText}>Step {stepNumber}</Text>
+        </View>
+        <TouchableOpacity 
+          onPress={goToNextStep} 
+          disabled={currentStepIndex === recipeSteps.length - 1}
+          style={styles.arrowButton}
+        >
+          <Icon name="chevron-right" size={30} color={currentStepIndex === recipeSteps.length - 1 ? 'gray' : 'black'} />
+        </TouchableOpacity>
       </View>
       <View style={styles.recipeCard}>
         <Text style={styles.recipeName}>Recipe Name</Text>
@@ -59,15 +75,30 @@ const RecipeScreen = () => {
         <Image style={styles.recipeImage} source={{ uri: imageUrl }} />
         {/* Placeholder for progress bar and cute encouraging character */}
       </View>
-      <View style={styles.navigation}>
-        <TouchableOpacity onPress={goToPreviousStep} disabled={currentStepIndex === 0}>
-          <Text style={styles.navText}>Previous</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={goToNextStep} disabled={currentStepIndex === recipeSteps.length - 1}>
-          <Text style={styles.navText}>Next</Text>
-        </TouchableOpacity>
-      </View>
+      <SafeAreaView style={styles.container}>
+
+      <ProgressBar currentStep={currentStepIndex + 1} totalSteps={recipeSteps.length} />
+    
     </SafeAreaView>
+    </SafeAreaView>
+  );
+};
+
+const ProgressBar = ({ currentStep, totalSteps }) => {
+  const stepsArray = Array.from({ length: totalSteps }, (_, index) => index + 1);
+
+  return (
+    <View style={styles.progressContainer}>
+      {stepsArray.map(step => (
+        <View
+          key={step}
+          style={[
+            styles.circle,
+            currentStep >= step ? styles.filledCircle : styles.unfilledCircle,
+          ]}
+        />
+      ))}
+    </View>
   );
 };
 
@@ -83,6 +114,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 24,
+    fontWeight: 'bold', 
   },
   closeButton: {
     justifyContent: 'center',
@@ -100,11 +132,12 @@ const styles = StyleSheet.create({
   },
   stepText: {
     fontSize: 20,
+    fontFamily: 'YourFont-Family',
   },
   recipeCard: {
     marginHorizontal: 16,
     padding: 16,
-    borderRadius: 8,
+    borderRadius: 16,
     backgroundColor: '#f9f9f9',
     alignItems: 'center',
   },
@@ -133,6 +166,27 @@ const styles = StyleSheet.create({
   },
   navText: {
     fontSize: 18,
+  },
+  arrowButton: {
+    padding: 10, 
+  },
+  progressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20, // Adjust the vertical spacing of the progress bar
+  },
+  circle: {
+    width: 20, // Circle size
+    height: 20,
+    borderRadius: 10, // Half the width to make it round
+    marginHorizontal: 5, // Spacing between circles
+  },
+  filledCircle: {
+    backgroundColor: 'black', // Color for filled steps
+  },
+  unfilledCircle: {
+    backgroundColor: 'lightgrey', // Color for unfilled steps
   },
 });
 

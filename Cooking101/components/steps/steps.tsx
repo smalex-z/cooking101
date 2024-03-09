@@ -24,6 +24,9 @@ const recipeSteps = [
   // ... more steps
 ];
 
+const leftArrowUrl = 'https://cdn-icons-png.flaticon.com/512/54/54517.png'; // Replace with your actual URL
+const rightArrowUrl = 'https://cdn.icon-icons.com/icons2/2036/PNG/512/right_arrow_circle_icon_124233.png';
+
 const RecipeScreen = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
@@ -50,22 +53,50 @@ const RecipeScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.navigation}>
-        <TouchableOpacity 
+        {/* <TouchableOpacity 
           onPress={goToPreviousStep} 
           disabled={currentStepIndex === 0}
           style={styles.arrowButton}
         >
           <Icon name="chevron-left" size={30} color={currentStepIndex === 0 ? 'gray' : 'black'} />
+        </TouchableOpacity> */}
+        <TouchableOpacity 
+          onPress={goToPreviousStep} 
+          disabled={currentStepIndex === 0}
+          style={styles.arrowButton}
+        >
+          <Image 
+            source={{ uri: leftArrowUrl }} 
+            style={[
+              styles.arrowImage, 
+              { tintColor: currentStepIndex === 0 ? 'gray' : 'black' }
+            ]}
+            resizeMode="contain" // This ensures the image fits within the button
+          />
         </TouchableOpacity>
         <View style={styles.stepIndicator}>
           <Text style={styles.stepText}>Step {stepNumber}</Text>
         </View>
-        <TouchableOpacity 
+        {/* <TouchableOpacity 
           onPress={goToNextStep} 
           disabled={currentStepIndex === recipeSteps.length - 1}
           style={styles.arrowButton}
         >
           <Icon name="chevron-right" size={30} color={currentStepIndex === recipeSteps.length - 1 ? 'gray' : 'black'} />
+        </TouchableOpacity> */}
+        <TouchableOpacity 
+          onPress={goToNextStep} 
+          disabled={currentStepIndex === recipeSteps.length - 1}
+          style={styles.arrowButton}
+        >
+          <Image 
+            source={{ uri: rightArrowUrl }} 
+            style={[
+              styles.arrowImage, 
+              { tintColor: currentStepIndex === recipeSteps.length - 1 ? 'gray' : 'black' }
+            ]}
+            resizeMode="contain" // This ensures the image fits within the button
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.recipeCard}>
@@ -73,7 +104,6 @@ const RecipeScreen = () => {
         <Text style={styles.recipeTime}>Time: {time}</Text>
         <Text style={styles.recipeInstruction}>{instruction}</Text>
         <Image style={styles.recipeImage} source={{ uri: imageUrl }} />
-        {/* Placeholder for progress bar and cute encouraging character */}
       </View>
       <SafeAreaView style={styles.container}>
 
@@ -83,7 +113,7 @@ const RecipeScreen = () => {
     </SafeAreaView>
   );
 };
-
+// navigation.setOptions({ headerShown: false });
 const ProgressBar = ({ currentStep, totalSteps }) => {
   const stepsArray = Array.from({ length: totalSteps }, (_, index) => index + 1);
 
@@ -105,7 +135,7 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F5E7DA',
   },
   header: {
     flexDirection: 'row',
@@ -119,7 +149,7 @@ const styles = StyleSheet.create({
   closeButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor: 'gray',
     borderRadius: 20,
     padding: 8,
   },
@@ -132,7 +162,7 @@ const styles = StyleSheet.create({
   },
   stepText: {
     fontSize: 20,
-    fontFamily: 'YourFont-Family',
+    fontFamily: 'Londrina Sketch',
   },
   recipeCard: {
     marginHorizontal: 16,
@@ -156,9 +186,6 @@ const styles = StyleSheet.create({
     height: 100,
     marginBottom: 16,
   },
-  placeholderText: {
-    // Add styles for the progress bar placeholder
-  },
   navigation: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -177,10 +204,17 @@ const styles = StyleSheet.create({
     marginVertical: 20, // Adjust the vertical spacing of the progress bar
   },
   circle: {
-    width: 20, // Circle size
+    width: 30, // Circle size
     height: 20,
     borderRadius: 10, // Half the width to make it round
     marginHorizontal: 5, // Spacing between circles
+    shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
   },
   filledCircle: {
     backgroundColor: 'black', // Color for filled steps
@@ -188,6 +222,12 @@ const styles = StyleSheet.create({
   unfilledCircle: {
     backgroundColor: 'lightgrey', // Color for unfilled steps
   },
+  arrowImage: {
+    width: 30, // Set the width of the arrow image
+    height: 30, // Set the height of the arrow image
+    // Add other styles as necessary
+  },
+
 });
 
 export default RecipeScreen;

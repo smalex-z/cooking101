@@ -23,7 +23,7 @@ export function Router() {
         <NavigationContainer>
             {/* {currentUser ? <AppStack /> : <AuthStack />} */}
             <Stack.Navigator>
-                <Stack.Screen name="Steps" component={stepsPage} />
+                <Stack.Screen name="Steps" component={stepsPage} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     )

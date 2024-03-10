@@ -100,7 +100,7 @@ const RecipePage = ({navigation}: {navigation: any}) => { // TODO: clean up prop
         <TouchableOpacity>
           <Text>Favorites</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation?.navigate('RecipeUpload')}>
           <Text>Upload</Text>
         </TouchableOpacity>
         <TouchableOpacity>

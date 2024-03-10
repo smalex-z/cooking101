@@ -193,7 +193,7 @@ export function RecipeOverview({route, navigation}: {route: any, navigation: any
                         renderItem={({item}) => <IngredientItem text={item.text} />}
                         keyExtractor={item => `${item.id}`} />
                 </View>
-                <TouchableOpacity style={styles.startButton}>
+                <TouchableOpacity style={styles.startButton} onPress={()=>navigation?.navigate("Steps")}>
                     <Text style={styles.startButtonText}>Start Cooking!</Text>
                 </TouchableOpacity>
                 <View>

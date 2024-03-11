@@ -24,11 +24,6 @@ export function Router() {
     }
     return (
         <NavigationContainer>
-
-            <Stack.Navigator>
-                <Stack.Screen name="Home" component={homePage} />
-                <Stack.Screen name="Steps" component={stepsPage} />
-            </Stack.Navigator>
             {currentUser ? <AppStack /> : <AuthStack />}
         </NavigationContainer>
     )

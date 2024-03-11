@@ -76,8 +76,10 @@ const RecipePage = ({navigation}: {navigation: any}) => { // TODO: clean up prop
     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
       {/* For testing successful auth */}
       {/* currentUser shouldn't be undefined because that would cause context to render sign in page */}
-      <Text>Hello, PlaceHolder</Text> 
-      <SearchBar />
+      <View style={{height: 100}}>
+        <Text>Hello, {currentUser!.email}</Text> 
+        <SearchBar />
+      </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <CuisineCard dishName="Cuisine Name" imageSource={require('../homepage/food1.jpg')} />
         <CuisineCard dishName="Cuisine Name" imageSource={require('../homepage/food1.jpg')} />
@@ -95,20 +97,6 @@ const RecipePage = ({navigation}: {navigation: any}) => { // TODO: clean up prop
             <RecipeCard key={recipe.key} dishName={recipe.dishName} imageSource={require('../homepage/food2.jpg')} />
           ))}
         </ScrollView>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', padding: 10 }}>
-          <TouchableOpacity>
-            <Text>Home</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text>Favorites</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text>Upload</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text>Profile</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   );

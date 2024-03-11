@@ -24,7 +24,7 @@ const recipeSteps = [
   // ... more steps
 ];
 
-const RecipeScreen = () => {
+const RecipeScreen = ({navigation}: {navigation: any}) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const goToNextStep = () => {
@@ -45,7 +45,7 @@ const RecipeScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Preparation</Text>
-        <TouchableOpacity style={styles.closeButton}>
+        <TouchableOpacity style={styles.closeButton} onPress={() => navigation?.navigate('RecipeOverview')}>
           <Text style={styles.closeButtonText}>Close</Text>
         </TouchableOpacity>
       </View>

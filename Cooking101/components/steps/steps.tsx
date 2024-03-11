@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     fontWeight: 'bold', 
+    fontFamily: "PatrickHandSC-Regular",
   },
   closeButton: {
     justifyContent: 'center',
@@ -161,8 +162,8 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   stepText: {
-    fontSize: 20,
-    fontFamily: 'Londrina Sketch',
+    fontSize: 30,
+    fontFamily: "PatrickHandSC-Regular",
   },
   recipeCard: {
     marginHorizontal: 16,

@@ -100,7 +100,7 @@ const RecipeScreen = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.recipeCard}>
-        <Text style={styles.recipeName}>Recipe Name</Text>
+        <Text style={styles.recipeName}>Penna Marinara</Text>
         <Text style={styles.recipeTime}>Time: {time}</Text>
         <Text style={styles.recipeInstruction}>{instruction}</Text>
         <Image style={styles.recipeImage} source={{ uri: imageUrl }} />
@@ -150,12 +150,13 @@ const styles = StyleSheet.create({
   closeButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'gray',
     borderRadius: 20,
     padding: 8,
   },
   closeButtonText: {
-    color: '#fff',
+    fontFamily: "PatrickHandSC-Regular",
+    fontWeight: 'bold', 
+    fontSize: 20,
   },
   stepIndicator: {
     alignItems: 'center',
@@ -166,21 +167,38 @@ const styles = StyleSheet.create({
     fontFamily: "PatrickHandSC-Regular",
   },
   recipeCard: {
-    marginHorizontal: 16,
+    marginHorizontal: 14,
     padding: 16,
-    borderRadius: 16,
+    borderRadius: 10, 
     backgroundColor: '#f9f9f9',
     alignItems: 'center',
+    borderWidth: 1, 
+    borderColor: 'black', 
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   recipeName: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 28, // Increase font size to match the image
+    fontWeight: '600', // Adjust weight to be semi-bold
+    fontFamily: "PatrickHandSC-Regular",
+    marginTop: 8, // Add a top margin to give space from the top edge
   },
   recipeTime: {
     marginVertical: 8,
+    fontSize: 20,
+    fontFamily: "PatrickHandSC-Regular",
   },
   recipeInstruction: {
     marginBottom: 16,
+    fontFamily: "PatrickHandSC-Regular",
+    fontSize: 22, // Increase font size to match the image
+    textAlign: 'center', // Center the text
   },
   recipeImage: {
     width: 100,

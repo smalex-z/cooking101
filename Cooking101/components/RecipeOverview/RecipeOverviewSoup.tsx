@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function RecipeOverview({
+export function RecipeOverviewSoup({
   route,
   navigation,
 }: {
@@ -165,10 +165,10 @@ export function RecipeOverview({
   navigation: any;
 }) {
   const testRecipe = {
-    title: 'Butter + Parm Gnocchi',
+    title: 'Tofu Soup',
     author: 'Cooking 101 Team',
     image: 'HELP!', // aaggh
-    shortDescription: 'An easy 3-ingredient dinner!',
+    shortDescription: 'A hot and cozy veggie soup for cold days!',
     ingredients: [
       {
         text: 'Ingredient 1: Amount, Description',
@@ -183,17 +183,17 @@ export function RecipeOverview({
         id: 3,
       },
     ],
-    additionalDetails: `Don't overcook the gnocchi! It's not as good when it's super mushy.`,
+    additionalDetails: `This is a very versatile recipe, feel free to add extra protein or veggies if preferred.`,
   };
 
   return (
     <SafeAreaView style={styles.overviewContainer}>
-      <ScrollView nestedScrollEnabled={true} style={styles.overviewContainer}>
+      <ScrollView style={styles.overviewContainer}>
         <View>
           <View style={styles.recipeImageContainer}>
             {
               <Image
-                source={require('../../assets/foodImages/Gnocchi.png')}
+                source={require('../../assets/foodImages/TofuSoup.jpg')}
                 style={styles.recipeImage}
                 resizeMode="cover"
               />
@@ -215,7 +215,6 @@ export function RecipeOverview({
                 data={testRecipe.ingredients}
                 renderItem={({item}) => <IngredientItem text={item.text} />}
                 keyExtractor={item => `${item.id}`}
-                nestedScrollEnabled={true}
               />
             </View>
             <TouchableOpacity

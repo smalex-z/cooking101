@@ -17,7 +17,9 @@ import homepage from './components/homepage/home';
 
 import { AuthProvider } from './context/AuthContext';
 import { Router } from './routes/Router';
+import { LogBox } from 'react-native';
 
+LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 
 const Tab = createBottomTabNavigator();
 

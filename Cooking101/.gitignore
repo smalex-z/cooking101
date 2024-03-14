@@ -72,3 +72,6 @@ ios/GoogleService-Info.plist
 android/app/google-services.json
 
 /components/RecipeOverview/gnocchi-test-img.jpg
+
+# vim files?
+*.swp

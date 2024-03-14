@@ -12,6 +12,7 @@ import HomeIcon from '../assets/icons/home.png'
 import HeartIcon from '../assets/icons/heart.png'
 import AddIcon from '../assets/icons/add.png'
 import ChefIcon from '../assets/icons/chef.png'
+import { FriendsList } from "../components/FriendsList/FriendsList";
 
 const Tab = createBottomTabNavigator()
 
@@ -38,7 +39,10 @@ export function AppStack() {
             tabBarLabel: "Upload",
             tabBarIcon: ({size, focused, color}) => <Image source={AddIcon} style={{ width: 42, height: 42 }} />,
             }} />
-
+          <Tab.Screen name="FriendsList" component={FriendsList} options={{
+            headerShown: false,
+            tabBarLabel: "Friends",
+          }} />
 
           {/* not shown in bottom tabs */}
           <Tab.Screen name="Steps" component={stepsPage} options={{headerShown: false, tabBarButton: () => null}} />

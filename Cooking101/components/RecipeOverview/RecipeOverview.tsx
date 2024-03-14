@@ -16,7 +16,7 @@ More notes
 - start dev with hard-coded recipe object
 */
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View, ScrollView, Button, TouchableOpacity, FlatList, SafeAreaView, Image } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Button, TouchableOpacity, FlatList, SafeAreaView, Image, SectionList } from "react-native";
 import GnocchiImage from './gnocchi-test-img.jpg'
 
 const styles = StyleSheet.create({
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
 
 export function RecipeOverview({route, navigation}: {route: any, navigation: any}) {
 
-        const testRecipe = {
+        const testRecipe: any = {
             title: "Butter + Parm Gnocchi",
             author: 'Cooking 101 Team',
             image: "HELP!", // aaggh
@@ -167,7 +167,7 @@ export function RecipeOverview({route, navigation}: {route: any, navigation: any
         }
 
     return (
-    <SafeAreaView style={styles.overviewContainer}>
+    <ScrollView style={styles.overviewContainer}>
         <View >
             <View style={styles.recipeImageContainer}>
 
@@ -188,10 +188,9 @@ export function RecipeOverview({route, navigation}: {route: any, navigation: any
                 <Text style={styles.shortDescription}>Short Description: {testRecipe.shortDescription}</Text>
                 <View style={styles.ingredientsContainer}>
                     <Text style={styles.ingredientsHeaderText}>Ingredients</Text>
-                    <FlatList
-                        data={testRecipe.ingredients}
-                        renderItem={({item}) => <IngredientItem text={item.text} />}
-                        keyExtractor={item => `${item.id}`} />
+                    <IngredientItem text={testRecipe.ingredients[0].text} />
+                    <IngredientItem text={testRecipe.ingredients[1].text} />
+                    <IngredientItem text={testRecipe.ingredients[2].text} />
                 </View>
                 <TouchableOpacity style={styles.startButton} onPress={()=>navigation?.navigate("Steps")}>
                     <Text style={styles.startButtonText}>Start Cooking!</Text>
@@ -206,7 +205,7 @@ export function RecipeOverview({route, navigation}: {route: any, navigation: any
                 </View>
             </View>
         </View>
-    </SafeAreaView>
+    </ScrollView>
     )
 }
 

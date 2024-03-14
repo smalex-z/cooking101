@@ -54,6 +54,7 @@ export function AppStack() {
           <Tab.Screen name="FriendsList" component={FriendsList} options={{
             headerShown: false,
             tabBarLabel: "Friends",
+            tabBarButton: () => null
           }} />
 
 

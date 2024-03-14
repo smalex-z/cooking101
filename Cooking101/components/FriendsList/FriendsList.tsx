@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 function NavigationHeader({navigation}: {navigation: any}) {
     return (<View>
         <TouchableOpacity style={styles.backFriendsButtonContainer}
-        onPress={() => navigation?.goBack()}>
+        onPress={() => navigation?.navigate('Profile')}>
             <Image source={BackButton} style={styles.backButtonIcon} />   
             <Text style={styles.friendsButtonText}>Friends</Text>
         </TouchableOpacity>

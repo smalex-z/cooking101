@@ -16,6 +16,7 @@ import ViewProfile from "../components/Profile/ProfileScreen";
 import { RecipeOverviewSoup } from "../components/RecipeOverview/RecipeOverviewSoup";
 import { RecipeOverviewCurry } from "../components/RecipeOverview/RecipeOverviewCurry";
 import { RecipeOverviewStew } from "../components/RecipeOverview/RecipeOverviewStew";
+import { FriendsList } from "../components/FriendsList/FriendsList";
 
 const Tab = createBottomTabNavigator()
 
@@ -43,11 +44,19 @@ export function AppStack() {
             tabBarIcon: ({size, focused, color}) => <Image source={AddIcon} style={{ width: 42, height: 42 }} />,
             }} />
 
+
           <Tab.Screen name="Profile" component={ViewProfile} options={{
             headerShown: false,
             tabBarLabel: "Profile",
             tabBarIcon: ({size, focused, color}) => <Image source={ChefIcon} style={{ width: 42, height: 42 }} />,
             }} />
+
+          <Tab.Screen name="FriendsList" component={FriendsList} options={{
+            headerShown: false,
+            tabBarLabel: "Friends",
+          }} />
+
+
           {/* not shown in bottom tabs */}
           <Tab.Screen name="Steps" component={stepsPage} options={{headerShown: false, tabBarButton: () => null}} />
           <Tab.Screen name='RecipeOverview' component={RecipeOverview} options={{headerShown: false, tabBarButton: () => null}}/>

@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     backgroundColor: 'rgba(253, 246, 239, 1)', 
+
   },
   
   inputContainer: {

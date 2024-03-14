@@ -117,7 +117,9 @@ const ViewProfile: React.FC = () => {
           {recipes.map((recipe, index) => (
             <TouchableOpacity
               key={index}
-              onPress={() => {}}
+              onPress={() => {
+                
+              }}
               style={styles.recipeCard}>
               <View style={styles.recipeFrameContainer}>
                 <Image source={require('./RecipeFrame.png')} style={styles.recipeFrame} />

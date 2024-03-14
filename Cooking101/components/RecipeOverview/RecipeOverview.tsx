@@ -28,6 +28,11 @@ import {
   Image,
 } from 'react-native';
 
+// get button image
+import BackButton from '../../assets/icons/page-back-navigation-icon.png'
+
+import GnocchiImage from '../../assets/foodImages/Gnocchi.png'
+
 const styles = StyleSheet.create({
   overviewContainer: {
     display: 'flex',
@@ -42,6 +47,9 @@ const styles = StyleSheet.create({
   recipeImage: {
     width: '100%',
     height: 200,
+    resizeMode: 'stretch',
+    marginTop: 10,
+    padding: 0,
   },
   RecipeTitle: {
     color: '#875F52',
@@ -147,95 +155,109 @@ const styles = StyleSheet.create({
     backgroundColor: '#E1F6FF',
     padding: 15,
   },
-  notesText: {
-    color: '#67544C',
-    fontFamily: 'Patrick Hand SC',
-    fontSize: 22,
-    fontWeight: '400',
-    lineHeight: 25 /* 100% */,
-    letterSpacing: 0.75,
-  },
+    notesText: {
+        color: '#67544C',
+        fontFamily: 'Patrick Hand SC',
+        fontSize: 22,
+        fontWeight: '400',
+        lineHeight: 25 /* 100% */,
+        letterSpacing: 0.75,
+    },
+        // stolen from friends list
+    backButtonContainer: {
+        marginTop: 40,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 15
+    },
+    backButtonText: {
+        color: '#67544C',
+        fontFamily: "Patrick Hand SC",
+        fontSize: 30,
+        letterSpacing: 0.9,
+    },
+    backButtonIcon: {
+        width: 30,
+        height: 30,
+       resizeMode: 'contain'
+    }
 });
 
-export function RecipeOverview({
-  route,
-  navigation,
-}: {
-  route: any;
-  navigation: any;
-}) {
-  const testRecipe = {
-    title: 'Butter + Parm Gnocchi',
-    author: 'Cooking 101 Team',
-    image: 'HELP!', // aaggh
-    shortDescription: 'An easy 3-ingredient dinner!',
-    ingredients: [
-      {
-        text: 'Ingredient 1: Amount, Description',
-        id: 1,
-      },
-      {
-        text: 'Ingredient 2: Amount, Substitute',
-        id: 2,
-      },
-      {
-        text: 'Ingredient 3: Amount, Details',
-        id: 3,
-      },
-    ],
-    additionalDetails: `Don't overcook the gnocchi! It's not as good when it's super mushy.`,
-  };
+export function RecipeOverview({route, navigation}: {route: any, navigation: any}) {
 
-  return (
-    <SafeAreaView style={styles.overviewContainer}>
-      <ScrollView nestedScrollEnabled={true} style={styles.overviewContainer}>
-        <View>
-          <View style={styles.recipeImageContainer}>
-            {
-              <Image
-                source={require('../../assets/foodImages/Gnocchi.png')}
+        const testRecipe: any = {
+            title: "Butter + Parm Gnocchi",
+            author: 'Cooking 101 Team',
+            image: "HELP!", // aaggh
+            shortDescription: "An easy 3-ingredient dinner!",
+            ingredients: [
+                {
+                    text: "Ingredient 1: Amount, Description",
+                    id: 1
+                },
+                {
+                    text: "Ingredient 2: Amount, Substitute",
+                    id: 2
+                },
+                {
+                    text: "Ingredient 3: Amount, Details",
+                    id: 3
+                },
+            ],
+            additionalDetails: `Don't overcook the gnocchi! It's not as good when it's super mushy.`
+        }
+
+    return (
+    <ScrollView style={styles.overviewContainer}>
+        <View >
+            <NavigationHeader navigation={navigation}/>
+            {/* <View style={styles.recipeImageContainer}></View> */}
+            <Image
+                source={GnocchiImage}
                 style={styles.recipeImage}
-                resizeMode="cover"
-              />
-            }
+            />
+
+            <View style={styles.recipeDetailsTextContainer}>
+                <Text style={styles.RecipeTitle}>{testRecipe.title}</Text>
+                <TouchableOpacity />
+                <View style={styles.authorshipContainer}>
+                    <Text style={styles.recipeByText}>Recipe By: </Text>
+                    <Text onPress={() => navigation?.navigate('Profile')} style={styles.authorText}>{testRecipe.author}</Text>
+                </View>
+                <Text style={styles.shortDescription}>Short Description: {testRecipe.shortDescription}</Text>
+                <View style={styles.ingredientsContainer}>
+                    <Text style={styles.ingredientsHeaderText}>Ingredients</Text>
+                    <IngredientItem text={testRecipe.ingredients[0].text} />
+                    <IngredientItem text={testRecipe.ingredients[1].text} />
+                    <IngredientItem text={testRecipe.ingredients[2].text} />
+                </View>
+                <TouchableOpacity style={styles.startButton} onPress={()=>navigation?.navigate("Steps")}>
+                    <Text style={styles.startButtonText}>Start Cooking!</Text>
+                </TouchableOpacity>
+                <View>
+                    <Text style={styles.notesHeaderText}>Notes:</Text>
+                    <View style={styles.notesContainer}>
+                        <Text style={styles.notesText}>
+                            {`${testRecipe.additionalDetails}`}
+                        </Text>
+                    </View>
+                </View>
+            </View>
+
           </View>
-          <View style={styles.recipeDetailsTextContainer}>
-            <Text style={styles.RecipeTitle}>{testRecipe.title}</Text>
-            <TouchableOpacity />
-            <View style={styles.authorshipContainer}>
-              <Text style={styles.recipeByText}>Recipe By: </Text>
-              <Text style={styles.authorText}>{testRecipe.author}</Text>
-            </View>
-            <Text style={styles.shortDescription}>
-              Short Description: {testRecipe.shortDescription}
-            </Text>
-            <View style={styles.ingredientsContainer}>
-              <Text style={styles.ingredientsHeaderText}>Ingredients</Text>
-              <FlatList
-                data={testRecipe.ingredients}
-                renderItem={({item}) => <IngredientItem text={item.text} />}
-                keyExtractor={item => `${item.id}`}
-                nestedScrollEnabled={true}
-              />
-            </View>
-            <TouchableOpacity
-              style={styles.startButton}
-              onPress={() => navigation?.navigate('Steps')}>
-              <Text style={styles.startButtonText}>Start Cooking!</Text>
-            </TouchableOpacity>
-            <View>
-              <Text style={styles.notesHeaderText}>Notes:</Text>
-              <View style={styles.notesContainer}>
-                <Text style={styles.additionalDetails}>
-                  {`${testRecipe.additionalDetails}`}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+    </ScrollView>
+    )
+}
+
+function NavigationHeader({navigation}: {navigation: any}) {
+    return (<View>
+        <TouchableOpacity style={styles.backButtonContainer}
+        onPress={() => navigation?.goBack()}>
+            <Image source={BackButton} style={styles.backButtonIcon} />   
+            <Text style={styles.backButtonText}>Back</Text>
+        </TouchableOpacity>
+    </View>)
 }
 
 interface IngredientItemProps {
@@ -248,4 +270,4 @@ function IngredientItem({text}: IngredientItemProps) {
       <Text style={styles.ingredientItemText}>{`\u2022 ${text}`}</Text>
     </View>
   );
-}
+  }

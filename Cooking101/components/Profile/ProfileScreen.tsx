@@ -53,8 +53,7 @@ const recipes = [
   // Add more recipes as needed
 ];
 
-const ViewProfile: React.FC = () => {
-  const navigation = useNavigation();
+const ViewProfile = ({navigation}: {navigation: any}) => {
 
   
   const profileImage = require('./ProfileImage.png'); 
@@ -79,7 +78,7 @@ const ViewProfile: React.FC = () => {
 
         <TouchableOpacity
           onPress={() => {
-            // Implement Friends button functionality
+            navigation?.navigate('FriendsList')
           }}
           style={[
             styles.buttonBorder,

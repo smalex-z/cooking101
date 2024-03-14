@@ -1,103 +1,263 @@
 import React from 'react';
-import { View, Text, TextInput, Image, ScrollView, TouchableOpacity , useWindowDimensions } from 'react-native';
-import { useAuth } from '../../context/AuthContext';
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  useWindowDimensions,
+} from 'react-native';
+import {useAuth} from '../../context/AuthContext';
+import {RecipeOverview} from '../RecipeOverview/RecipeOverview';
 
-// Mock component for the search bar
 const SearchBar = () => (
   <TextInput
     placeholder="Search recipe..."
     style={{
-      height: 40,
+      height: 50,
       borderColor: 'gray',
       borderWidth: 1,
       borderRadius: 10,
       padding: 10,
       margin: 10,
+      fontFamily: 'PatrickHandSC-Regular',
+      fontSize: 20,
     }}
   />
 );
 
-// Define the type for the props that RecipeCard expects
 interface RecipeCardProps {
   dishName: string;
-  recipeId?: string, // isn't required for now because we're testing
-  imageSource: any; // Change 'any' to the appropriate type of your image source
-  navigation?: any // idk how to do this with typescript and i don't have time rn, also not required because of testing
+  recipeId?: string;
+  imageSource: any;
+  navigation?: any;
 }
 
-// Mock component for a single cuisine card
-const CuisineCard: React.FC<RecipeCardProps> = ({ dishName, imageSource }) => (
-  <View style={{ alignItems: 'center', margin: 10 }}>
-    <View style={{ aspectRatio: 5/3, width: 150, borderRadius: 10, overflow: 'hidden' }}>
-      <Image
-        source={imageSource}
-        style={{ width: '100%', height: '100%' }}
-        resizeMode="cover"
-      />
-    </View>
-    <Text style={{ marginTop: 5 }}>{dishName}</Text>
+const CuisineCard: React.FC<RecipeCardProps> = ({dishName, imageSource}) => (
+  <View style={{alignItems: 'center', margin: 5, marginTop: 75}}>
+    <TouchableOpacity
+      style={{alignItems: 'center', position: 'relative'}}
+      onPress={() => {
+        // Define onPress behavior here
+      }}>
+      <View style={{alignItems: 'center', position: 'relative'}}>
+        <View
+          style={{
+            width: 100,
+            height: 100,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: -10,
+            marginTop: -10,
+          }}>
+          {/* Border Image */}
+          <Image
+            source={require('./CuisineFrame.png')}
+            style={{
+              position: 'absolute',
+              width: '70%', // Ensure the border image covers the container size
+              height: '70%',
+              resizeMode: 'cover', // Adjust as needed to ensure border fits well
+            }}
+          />
+
+          {/* Cuisine Icon */}
+          <Image
+            source={imageSource}
+            style={{
+              width: '50%', // Adjust size as needed to ensure it fits within the border
+              height: '50%', // Adjust size as needed to ensure it fits within the border
+              resizeMode: 'cover',
+            }}
+          />
+        </View>
+      </View>
+    </TouchableOpacity>
+    {/* Cuisine Name Text */}
+    <Text
+      style={{
+        marginTop: 5,
+        fontFamily: 'PatrickHandSC-Regular',
+        fontSize: 25,
+      }}>
+      {dishName}
+    </Text>
   </View>
 );
+const RecipeCard: React.FC<RecipeCardProps> = ({
+  dishName,
+  recipeId,
+  imageSource,
+  navigation,
+}) => {
+  const windowDimensions = useWindowDimensions();
 
-// Mock component for a single recipe card
-const RecipeCard: React.FC<RecipeCardProps> = ({ dishName, recipeId, imageSource, navigation }) => (
-  
-  <View 
-    style={{ alignItems: 'center', margin: 10 }} 
-    onTouchEnd={() =>
-      navigation?.navigate('RecipeOverview', {
-        recipeId: recipeId
-      })
-    }
-  >
-    <View style={{ aspectRatio: 3/5, width: (useWindowDimensions().height * .10), borderRadius: 10, overflow: 'hidden' }}>
-      <Image
-        source={imageSource}
-        style={{ width: '100%', height: '100%' }}
-        resizeMode="cover"
-      />
-    </View>
-    <Text style={{ marginTop: 5 }}>{dishName}</Text>
-  </View>
-);
-
-
-// Main component for the recipe page
-const RecipePage = ({navigation}: {navigation: any}) => { // TODO: clean up prop types
-  // Placeholder data for recipes
-  const recipes = [
-    { key: '1', dishName: 'Dish Name' },
-    { key: '2', dishName: 'Dish Name' },
-    // Add more recipes here
-  ];
-  const {currentUser} = useAuth()
+  const imageTopSpace = 6; 
 
   return (
-    <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
-      {/* For testing successful auth */}
-      {/* currentUser shouldn't be undefined because that would cause context to render sign in page */}
-      <View style={{height: 100}}>
-        <Text>Hello, {currentUser!.email}</Text> 
-        <SearchBar />
+    <TouchableOpacity
+      onPress={() => {
+        if (dishName === 'Butter + Parm Gnocchi') {
+          navigation?.navigate('RecipeOverview', {recipeId: recipeId});
+        } else if (dishName === 'Tofu Soup') {
+          navigation?.navigate('RecipeOverviewSoup', {recipeId: recipeId});
+        } else if (dishName === 'Japanese Curry') {
+          navigation?.navigate('RecipeOverviewCurry', {recipeId: recipeId});
+        } else if (dishName === 'Classic Beef Stew') {
+          navigation?.navigate('RecipeOverviewStew', {recipeId: recipeId});
+        }
+      }}
+      style={{alignItems: 'center', margin: 10}}>
+      <View
+        style={{
+          position: 'relative',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          marginBottom: 5,
+          marginHorizontal: 8,
+        }}>
+        <Image
+          source={require('./RecipeFrame.png')}
+          style={{
+            position: 'absolute',
+            width: windowDimensions.height * 0.15 + 20, 
+            height: windowDimensions.height * 0.15 * (220 / 167) + 60,
+            resizeMode: 'cover',
+          }}
+        />
+        <View
+          style={{
+            marginTop: imageTopSpace,
+            aspectRatio: 167 / 220,
+            width: windowDimensions.height * 0.15, 
+            borderRadius: 10,
+            overflow: 'hidden',
+          }}>
+          <Image
+            source={imageSource}
+            style={{width: '100%', height: '100%'}}
+            resizeMode="cover"
+          />
+        </View>
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-        <CuisineCard dishName="Cuisine Name" imageSource={require('../homepage/food1.jpg')} />
-        <CuisineCard dishName="Cuisine Name" imageSource={require('../homepage/food1.jpg')} />
+      <View
+        style={{
+          marginTop: 5, 
+          width: windowDimensions.height * 0.15, 
+        }}>
+        <Text
+          style={{
+            fontFamily: 'PatrickHandSC-Regular',
+            fontSize: 16,
+            textAlign: 'center',
+          }}
+          numberOfLines={2}>
+          {dishName}
+        </Text>
       </View>
-      <View style={{ flexDirection: 'column', justifyContent: 'space-around' }}>
-        <Text style={{ margin: 10 }}>Recommended for you</Text>
-        <ScrollView horizontal>
-          {recipes.map(recipe => (
-            <RecipeCard key={recipe.key} dishName={recipe.dishName} imageSource={require('../homepage/food2.jpg')} navigation={navigation} />
-          ))}
-        </ScrollView>
-        <Text style={{ margin: 10 }}>Trending Now</Text>
-        <ScrollView horizontal>
-          {recipes.map(recipe => (
-            <RecipeCard key={recipe.key} dishName={recipe.dishName} imageSource={require('../homepage/food2.jpg')} />
-          ))}
-        </ScrollView>
-      </View>
+    </TouchableOpacity>
+  );
+};
+
+const RecipePage = ({navigation}: {navigation: any}) => {
+  const recipes = [
+    {
+      key: '1',
+      dishName: 'Butter + Parm Gnocchi',
+      imageSource: require('../../assets/foodImages/Gnocchi.png'),
+      recipeId: 'gnocchi',
+    },
+    {
+      key: '2',
+      dishName: 'Tofu Soup',
+      imageSource: require('../../assets/foodImages/TofuSoup.jpg'),
+    },
+    {
+      key: '3',
+      dishName: 'Japanese Curry',
+      imageSource: require('../../assets/foodImages/Curry.png'),
+    },
+    {
+      key: '4',
+      dishName: 'Classic Beef Stew',
+      imageSource: require('../../assets/foodImages/Stew.png'),
+    },
+    // Add more recipes as needed
+  ];
+  const {currentUser} = useAuth();
+
+  // Filtering for the Trending Now section
+  const trendingRecipes = recipes.filter(
+    recipe =>
+      recipe.dishName === 'Japanese Curry' ||
+      recipe.dishName === 'Classic Beef Stew',
+  );
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        backgroundColor: '#FDF6EF',
+      }}>
+      <ScrollView>
+        <View style={{height: 10}}>
+          <SearchBar />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            marginBottom: 5,
+          }}>
+          <CuisineCard dishName="Pasta" imageSource={require('./Pasta.png')} />
+          <CuisineCard dishName="Vegan" imageSource={require('./Vegan.png')} />
+          <CuisineCard dishName="Soup" imageSource={require('./Soup.png')} />
+          <CuisineCard dishName="Protein" imageSource={require('./Protein.png')} />
+        </View>
+        <View style={{flexDirection: 'column', justifyContent: 'space-around'}}>
+          <Text
+            style={{
+              margin: 10,
+              fontFamily: 'PatrickHandSC-Regular',
+              color: '#67544C',
+              fontSize: 30,
+            }}>
+            Recommended for you
+          </Text>
+          <ScrollView horizontal>
+            {recipes.map(recipe => (
+              <RecipeCard
+                key={recipe.key}
+                dishName={recipe.dishName}
+                imageSource={recipe.imageSource}
+                navigation={navigation}
+              />
+            ))}
+          </ScrollView>
+          <Text
+            style={{
+              margin: 10,
+              fontFamily: 'PatrickHandSC-Regular',
+              color: '#67544C',
+              fontSize: 30,
+            }}>
+            Trending Now
+          </Text>
+          <ScrollView horizontal>
+            {trendingRecipes.map(recipe => (
+              <RecipeCard
+                key={recipe.key}
+                dishName={recipe.dishName}
+                imageSource={recipe.imageSource}
+                navigation={navigation}
+              />
+            ))}
+          </ScrollView>
+        </View>
+      </ScrollView>
     </View>
   );
 };

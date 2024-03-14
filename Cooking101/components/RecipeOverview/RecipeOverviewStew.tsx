@@ -28,8 +28,6 @@ import {
   Image,
 } from 'react-native';
 
-import GnocchiImage from './gnocchi-test-img.jpg'
-
 const styles = StyleSheet.create({
   overviewContainer: {
     display: 'flex',
@@ -159,7 +157,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function RecipeOverview({
+export function RecipeOverviewStew({
   route,
   navigation,
 }: {
@@ -167,10 +165,10 @@ export function RecipeOverview({
   navigation: any;
 }) {
   const testRecipe = {
-    title: 'Butter + Parm Gnocchi',
+    title: 'Classic Beef Stew',
     author: 'Cooking 101 Team',
     image: 'HELP!', // aaggh
-    shortDescription: 'An easy 3-ingredient dinner!',
+    shortDescription: 'A warm and hearty meal for any occasion!',
     ingredients: [
       {
         text: 'Ingredient 1: Amount, Description',
@@ -185,71 +183,39 @@ export function RecipeOverview({
         id: 3,
       },
     ],
-    additionalDetails: `Don't overcook the gnocchi! It's not as good when it's super mushy.`,
+    additionalDetails: `Beef stew is always versatile, add any extra veggies or ingredients if preferred.`,
   };
 
-
-export function RecipeOverview({route, navigation}: {route: any, navigation: any}) {
-
-        const testRecipe: any = {
-            title: "Butter + Parm Gnocchi",
-            author: 'Cooking 101 Team',
-            image: "HELP!", // aaggh
-            shortDescription: "An easy 3-ingredient dinner!",
-            ingredients: [
-                {
-                    text: "Ingredient 1: Amount, Description",
-                    id: 1
-                },
-                {
-                    text: "Ingredient 2: Amount, Substitute",
-                    id: 2
-                },
-                {
-                    text: "Ingredient 3: Amount, Details",
-                    id: 3
-                },
-            ],
-            additionalDetails: `Don't overcook the gnocchi! It's not as good when it's super mushy.`
-        }
-
-    return (
-    <ScrollView style={styles.overviewContainer}>
-        <View >
-            <View style={styles.recipeImageContainer}>
-
-            </View>
-            {/* <Image
-                source={GnocchiImage}
+  return (
+    <SafeAreaView style={styles.overviewContainer}>
+      <ScrollView style={styles.overviewContainer}>
+        <View>
+          <View style={styles.recipeImageContainer}>
+            {
+              <Image
+                source={require('../../assets/foodImages/Stew.png')}
                 style={styles.recipeImage}
-                resizeMode='center'
-            /> */}
-
-            <View style={styles.recipeDetailsTextContainer}>
-                <Text style={styles.RecipeTitle}>{testRecipe.title}</Text>
-                <TouchableOpacity />
-                <View style={styles.authorshipContainer}>
-                    <Text style={styles.recipeByText}>Recipe By: </Text>
-                    <Text style={styles.authorText}>{testRecipe.author}</Text>
-                </View>
-                <Text style={styles.shortDescription}>Short Description: {testRecipe.shortDescription}</Text>
-                <View style={styles.ingredientsContainer}>
-                    <Text style={styles.ingredientsHeaderText}>Ingredients</Text>
-                    <IngredientItem text={testRecipe.ingredients[0].text} />
-                    <IngredientItem text={testRecipe.ingredients[1].text} />
-                    <IngredientItem text={testRecipe.ingredients[2].text} />
-                </View>
-                <TouchableOpacity style={styles.startButton} onPress={()=>navigation?.navigate("Steps")}>
-                    <Text style={styles.startButtonText}>Start Cooking!</Text>
-                </TouchableOpacity>
-                <View>
-                    <Text style={styles.notesHeaderText}>Notes:</Text>
-                    <View style={styles.notesContainer}>
-                        <Text style={styles.notesText}>
-                            {`${testRecipe.additionalDetails}`}
-                        </Text>
-                    </View>
-                </View>
+                resizeMode="cover"
+              />
+            }
+          </View>
+          <View style={styles.recipeDetailsTextContainer}>
+            <Text style={styles.RecipeTitle}>{testRecipe.title}</Text>
+            <TouchableOpacity />
+            <View style={styles.authorshipContainer}>
+              <Text style={styles.recipeByText}>Recipe By: </Text>
+              <Text style={styles.authorText}>{testRecipe.author}</Text>
+            </View>
+            <Text style={styles.shortDescription}>
+              Short Description: {testRecipe.shortDescription}
+            </Text>
+            <View style={styles.ingredientsContainer}>
+              <Text style={styles.ingredientsHeaderText}>Ingredients</Text>
+              <FlatList
+                data={testRecipe.ingredients}
+                renderItem={({item}) => <IngredientItem text={item.text} />}
+                keyExtractor={item => `${item.id}`}
+              />
             </View>
             <TouchableOpacity
               style={styles.startButton}
@@ -266,8 +232,9 @@ export function RecipeOverview({route, navigation}: {route: any, navigation: any
             </View>
           </View>
         </View>
-    </ScrollView>
-    )
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
 interface IngredientItemProps {
